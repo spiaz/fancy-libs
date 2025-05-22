@@ -14,6 +14,12 @@ install: ## Install dependencies using Poetry
 tests: ## Run tests
 	@uv run pytest
 
+
+# Run Jupyter lab
+.PHONY: jupyterlab
+jupyterlab: ## Run Jupyter lab
+	@uv run jupyter lab --ServerApp.jpserver_extensions="{'juvio': True}"
+
 # Help
 .PHONY: help
 help: ## Display this help message
