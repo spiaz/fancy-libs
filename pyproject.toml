@@ -8,4 +8,28 @@ dependencies = [
     "beartype>=0.21.0",
     "jupyterlab>=4.4.2",
     "juvio>=0.1.0b2",
+    "poethepoet>=0.25.0",
+    "pre-commit>=4.3.0",
+    "ruff>=0.8.0",
 ]
+
+[tool.poe.tasks]
+install = { shell = "uv venv && uv sync && uv run pre-commit install && jupyter labextension enable juvio-frontend", help = "Install dependencies using uv" }
+tests = { shell = "uv run pytest", help = "Run tests" }
+jupyterlab = { shell = "uv run jupyter lab --ServerApp.jpserver_extensions='{\"juvio\": True}'", help = "Run Jupyter lab" }
+format = { shell = "uv run ruff format .", help = "Format code with ruff" }
+lint = { shell = "uv run ruff check . --fix", help = "Lint and fix code with ruff" }
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["I"]
+ignore = ["E501", "E203"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
